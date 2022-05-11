@@ -48,7 +48,7 @@ function generateButtons() {
         let btn = document.createElement("button");
         btn.innerHTML = element;
         btn.name = "parentbutton";
-        btn.style.border = "1px solid";
+        btn.style.border = "5px solid";
         btn.style.borderRadius = "20%";
         btn.style.backgroundColor = "white";
         btn.style.fontSize = "48px";
@@ -67,7 +67,7 @@ function generateButtons() {
                 let btn = document.createElement("button");
                 btn.innerHTML = element;
                 btn.name = "childbutton";
-                btn.style.border = "1px solid";
+                btn.style.border = "5px solid";
                 btn.style.borderRadius = "20%";
                 btn.style.backgroundColor = "white";
                 btn.style.fontSize = "36px";
@@ -133,7 +133,6 @@ function drawBalls() {
                 ctx.beginPath();
                 ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 9, 0, 2 * Math.PI, true);
                 ctx.lineWidth = 5;
-
                 ctx.stroke();
             }
         });
@@ -161,7 +160,6 @@ function drawLeftButton() {
     var canvas = document.getElementById('leftButton');
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        // ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(canvas.width, 0);
         ctx.lineTo(0, canvas.height / 2);
@@ -179,8 +177,6 @@ function drawRightButton() {
     var canvas = document.getElementById('rightButton');
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        // ctx.lineWidth = 2;
-
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(canvas.width, canvas.height / 2);
@@ -230,10 +226,10 @@ function drawFretBoard(chord) {
 
         // Neck
         ctx.fillStyle = fillColor;
-        ctx.fillRect(posx - 1, posy - barresize / 2, width + 2, barresize);
+        ctx.fillRect(posx - 3, posy - barresize / 2, width + 6, barresize);
 
         // Horizontal Lines
-        for (let i = 0; i < 6; i++) {
+        for (let i = 1; i < 6; i++) {
             ctx.beginPath();
             ctx.moveTo(posx, posy + height * i / 5);
             ctx.lineTo(width + posx, posy + height * i / 5);
@@ -285,7 +281,6 @@ function drawFretBoard(chord) {
                 ctx.beginPath();
                 ctx.arc(posx + index / 5 * width, posy - fingerSize * 1.6, fingerSize * 0.8, 0, 2 * Math.PI, true);
                 ctx.lineWidth = 5;
-
                 ctx.stroke();
             }
             else if (finger == -1) {
