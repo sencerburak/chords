@@ -51,6 +51,9 @@ function generateButtons() {
         btn.style.border = "1px solid";
         btn.style.borderRadius = "20%";
         btn.style.backgroundColor = "white";
+        btn.style.fontSize = "48px";
+        btn.style.padding = "10px 20px"
+        btn.style.margin = "10px"
         btn.onclick = function () {
             document.getElementsByName("parentbutton").forEach((element) => {
                 element.style.backgroundColor = "white";
@@ -67,6 +70,9 @@ function generateButtons() {
                 btn.style.border = "1px solid";
                 btn.style.borderRadius = "20%";
                 btn.style.backgroundColor = "white";
+                btn.style.fontSize = "36px";
+                btn.style.margin = "10px"
+
                 btn.onclick = function () {
                     document.getElementsByName("childbutton").forEach((element) => {
                         element.style.backgroundColor = "white";
@@ -119,13 +125,15 @@ function drawBalls() {
 
             if (index == currentChord) {
                 ctx.beginPath();
-                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 5, 0, 2 * Math.PI, true);
+                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 15, 0, 2 * Math.PI, true);
                 // ctx.fillStyle = fillColor;
                 ctx.fill();
             }
             else {
                 ctx.beginPath();
-                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 3, 0, 2 * Math.PI, true);
+                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 9, 0, 2 * Math.PI, true);
+                ctx.lineWidth = 5;
+
                 ctx.stroke();
             }
         });
@@ -136,7 +144,7 @@ function drawBalls() {
 async function drawNextChrod() {
     currentChord = (currentChord + 1) % chordList[parentChord][childChord].length;
 
-    const chord = new Chord(chordList[parentChord][childChord][currentChord],childChord);
+    const chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
     drawFretBoard(chord);
     drawBalls();
 
@@ -144,7 +152,7 @@ async function drawNextChrod() {
 async function drawPreviousChrod() {
     currentChord = (currentChord + chordList[parentChord][childChord].length - 1) % chordList[parentChord][childChord].length;
 
-    const chord = new Chord(chordList[parentChord][childChord][currentChord],childChord);
+    const chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
     drawFretBoard(chord);
     drawBalls();
 }
@@ -204,17 +212,19 @@ function drawFretBoard(chord) {
         var barresize = height / 50;
 
         // Name
-        ctx.font = fingerSize*2 + 'px serif';
+        ctx.font = fingerSize * 2 + 'px serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = 'rgb(0,0,0)';
-        ctx.fillText(chord.name, canvas.width/2,12);
+        ctx.fillText(chord.name, canvas.width / 2, fingerSize);
 
         // Vertical Lines
         for (let i = 0; i < 6; i++) {
             ctx.beginPath();
             ctx.moveTo(posx + i / 5 * width, posy);
             ctx.lineTo(posx + i / 5 * width, posy + height);
+            ctx.lineWidth = 5;
+
             ctx.stroke();
         }
 
@@ -227,6 +237,8 @@ function drawFretBoard(chord) {
             ctx.beginPath();
             ctx.moveTo(posx, posy + height * i / 5);
             ctx.lineTo(width + posx, posy + height * i / 5);
+            ctx.lineWidth = 5;
+
             ctx.stroke();
         }
 
@@ -272,6 +284,8 @@ function drawFretBoard(chord) {
             else if (finger == 0) {
                 ctx.beginPath();
                 ctx.arc(posx + index / 5 * width, posy - fingerSize * 1.6, fingerSize * 0.8, 0, 2 * Math.PI, true);
+                ctx.lineWidth = 5;
+
                 ctx.stroke();
             }
             else if (finger == -1) {
@@ -281,6 +295,7 @@ function drawFretBoard(chord) {
                 ctx.lineTo(posx + index / 5 * width + fingerSize / 2, posy - fingerSize * 1.5 + fingerSize / 2);
                 ctx.moveTo(posx + index / 5 * width + fingerSize / 2, posy - fingerSize * 1.5 - fingerSize / 2);
                 ctx.lineTo(posx + index / 5 * width - fingerSize / 2, posy - fingerSize * 1.5 + fingerSize / 2);
+                ctx.lineWidth = 5;
                 ctx.stroke();
             }
 
