@@ -83,7 +83,6 @@ function generateButtons() {
                     childChord = btn.innerHTML;
 
                     const chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
-                    console.log(chord)
                     drawLeftButton()
                     drawRightButton()
                     drawBalls();
@@ -285,7 +284,6 @@ function drawFretBoard(chord) {
             }
             else if (finger == -1) {
                 ctx.beginPath();
-                console.log(fingerSize)
                 ctx.moveTo(posx + index / 5 * width - fingerSize / 2, posy - fingerSize * 1.5 - fingerSize / 2);
                 ctx.lineTo(posx + index / 5 * width + fingerSize / 2, posy - fingerSize * 1.5 + fingerSize / 2);
                 ctx.moveTo(posx + index / 5 * width + fingerSize / 2, posy - fingerSize * 1.5 - fingerSize / 2);
