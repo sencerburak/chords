@@ -48,17 +48,19 @@ function generateButtons() {
         let btn = document.createElement("button");
         btn.innerHTML = element;
         btn.name = "parentbutton";
-        btn.style.border = "5px solid";
-        btn.style.borderRadius = "20%";
-        btn.style.backgroundColor = "white";
-        btn.style.fontSize = "48px";
-        btn.style.padding = "10px 20px"
-        btn.style.margin = "10px"
+        btn.classList.add("button-1");
+        // btn.style.border = "5px solid";
+        // btn.style.borderRadius = "20%";
+        // btn.style.backgroundColor = "white";
+        // btn.style.fontSize = "48px";
+        // btn.style.padding = "10px 20px"
+        // btn.style.margin = "10px"
         btn.onclick = function () {
             document.getElementsByName("parentbutton").forEach((element) => {
                 element.style.backgroundColor = "white";
             });
             btn.style.backgroundColor = fillColor;
+            
             parentChord = btn.innerHTML;
             chords = Object.keys(chordList[parentChord])
             var btndiv = document.getElementById("chords")
@@ -67,11 +69,11 @@ function generateButtons() {
                 let btn = document.createElement("button");
                 btn.innerHTML = element;
                 btn.name = "childbutton";
-                btn.style.border = "5px solid";
+                btn.style.border = "2px solid";
                 btn.style.borderRadius = "20%";
                 btn.style.backgroundColor = "white";
-                btn.style.fontSize = "36px";
-                btn.style.margin = "10px"
+                btn.style.fontSize = "16px";
+                btn.style.margin = "3px"
 
                 btn.onclick = function () {
                     document.getElementsByName("childbutton").forEach((element) => {
@@ -124,14 +126,14 @@ function drawBalls() {
 
             if (index == currentChord) {
                 ctx.beginPath();
-                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 15, 0, 2 * Math.PI, true);
+                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, height/4, 0, 2 * Math.PI, true);
                 // ctx.fillStyle = fillColor;
                 ctx.fill();
             }
             else {
                 ctx.beginPath();
-                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, 9, 0, 2 * Math.PI, true);
-                ctx.lineWidth = 5;
+                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, height/6, 0, 2 * Math.PI, true);
+                ctx.lineWidth = 2;
                 ctx.stroke();
             }
         });
@@ -247,7 +249,7 @@ function drawFretBoard(chord) {
         var minFret = Math.min.apply(Math, fingers);
         var maxFret = Math.max.apply(Math, fingers);
 
-        if (minFret > 1 && maxFret > 4) {
+        if (minFret > 1) {
             ctx.font = posx * 4 / 8 + 'px serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -269,7 +271,7 @@ function drawFretBoard(chord) {
         }
 
         chord.array.forEach((finger, index) => {
-            var fingerPos = (minFret > 0 && maxFret > 3) ? finger - minFret : finger - 1;
+            var fingerPos = (minFret > 0) ? finger - minFret : finger - 1;
             if (fingerPos >= 0) {
                 ctx.beginPath();
                 ctx.arc(posx + index / 5 * width, posy + height / 10 + height * fingerPos / 5, fingerSize, 0, 2 * Math.PI, true);

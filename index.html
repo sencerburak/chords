@@ -14,9 +14,24 @@
             /* border: 0px solid black; */
         }
 
+        .button-1 {
+            border: 3px solid;
+            border-radius: 20%;
+            background-color:white;
+            font-size: 20px;
+            padding: 5px 15px;
+            margin: 5px;
+        }
+
+        .fretboard {
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: 60px 500px 60px;
+            grid-template-columns: 30px 250px 30px;
             padding: 0px;
             justify-content: center;
         }
@@ -33,21 +48,21 @@
 
 <body onload="draw();">
 
-    <div align="center" style="margin-top: 150px; display: block;" id="buttons"></div>
+    <div align="center" style="margin-top: 25px; display: block;" id="buttons"></div>
     <div align="center" id="chords"></div>
     <div align="center" style="margin-top: 50px; display: block;">
-        <canvas style="margin-right: auto; margin-left: auto; display: block;" id="chord1" width="750"
-            height="1000; top:150px"></canvas>
+        <canvas class="fretboard" id="chord1" width="375px"
+            height="500px; top:150px"></canvas>
         <div class="grid-container">
             <div class="grid-item">
-                <canvas style="float: left;" id="leftButton" width="60" height="60"></canvas>
+                <canvas style="float: left;" id="leftButton" width="30" height="30"></canvas>
             </div>
             <div class="grid-item">
                 <canvas style="margin-right: auto; margin-left: auto; display: block; border:0px solid black;" id="nav"
-                    width="500" height="60"></canvas>
+                    width="250" height="30"></canvas>
             </div>
             <div class="grid-item">
-                <canvas style="position:relative; left: 0px;" id="rightButton" width="60" height="60"></canvas>
+                <canvas style="position:relative; left: 0px;" id="rightButton" width="30" height="30"></canvas>
             </div>
         </div>
 
