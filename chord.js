@@ -67,6 +67,8 @@ function generateButtons() {
             });
             btn.style.backgroundColor = fillColor;
 
+            flag = 0;
+
             parentChord = btn.innerHTML;
             chords = Object.keys(chordList[parentChord])
             var btndiv = document.getElementById("chords")
@@ -98,6 +100,8 @@ function generateButtons() {
                 }
                 btndiv.appendChild(btn);
             });
+            document.getElementsByName("childbutton")[0].click();
+
         }
         btndiv.appendChild(btn);
     });
@@ -110,7 +114,7 @@ function play() {
 
     var fingers = [];
     for (var i = 0; i < chord.array.length; i++) {
-            fingers.push(parseInt(chord.array[i]));
+        fingers.push(parseInt(chord.array[i]));
     }
     console.log(fingers);
     console.log(fretsAm);
