@@ -6,7 +6,9 @@ var chords;
 var chordkey;
 var parentChord;
 var childChord;
+var chord;
 var fillColor = 'rgb(0,176,189)';
+
 
 class Fretboard {
     constructor(width, height, posx, posy, barre) {
@@ -27,6 +29,10 @@ class Chord {
         this.name = name;
     }
 }
+
+
+
+
 
 async function getChords() {
     const request = new Request('chords.json', {
@@ -60,7 +66,7 @@ function generateButtons() {
                 element.style.backgroundColor = "white";
             });
             btn.style.backgroundColor = fillColor;
-            
+
             parentChord = btn.innerHTML;
             chords = Object.keys(chordList[parentChord])
             var btndiv = document.getElementById("chords")
@@ -84,7 +90,7 @@ function generateButtons() {
                     currentChord = 0;
                     childChord = btn.innerHTML;
 
-                    const chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
+                    chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
                     drawLeftButton()
                     drawRightButton()
                     drawBalls();
@@ -94,20 +100,46 @@ function generateButtons() {
             });
         }
         btndiv.appendChild(btn);
+    });
+}
+
+function play() {
+
+    var fretsAm = [-1, 0, 2, 2, 1, 0];
+
+
+    var fingers = [];
+    for (var i = 0; i < chord.array.length; i++) {
+            fingers.push(parseInt(chord.array[i]));
     }
-    );
+    console.log(fingers);
+    console.log(fretsAm);
+    player.queueChord(audioContext, output, guitar, now, pitches(fingers), 1.5)
+}
 
+function pitches(frets) {
+    var p = [];
+    if (frets[0] > -1) p.push(_6th + frets[0]);
+    if (frets[1] > -1) p.push(_5th + frets[1]);
+    if (frets[2] > -1) p.push(_4th + frets[2]);
+    if (frets[3] > -1) p.push(_3rd + frets[3]);
+    if (frets[4] > -1) p.push(_2nd + frets[4]);
+    if (frets[5] > -1) p.push(_1st + frets[5]);
+    return p;
+}
 
+function cancel() {
+    player.cancelQueue(audioContext);
 }
 
 async function draw() {
+
     chordList = await getChords();
     keys = Object.keys(chordList);
 
     generateButtons();
     document.getElementsByName("parentbutton")[0].click();
     document.getElementsByName("childbutton")[0].click();
-
 
 }
 
@@ -126,13 +158,13 @@ function drawBalls() {
 
             if (index == currentChord) {
                 ctx.beginPath();
-                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, height/4, 0, 2 * Math.PI, true);
+                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, height / 4, 0, 2 * Math.PI, true);
                 // ctx.fillStyle = fillColor;
                 ctx.fill();
             }
             else {
                 ctx.beginPath();
-                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, height/6, 0, 2 * Math.PI, true);
+                ctx.arc(index / qnty * width + width / (qnty * 2), height / 2, height / 6, 0, 2 * Math.PI, true);
                 ctx.lineWidth = 2;
                 ctx.stroke();
             }
@@ -193,6 +225,9 @@ function drawRightButton() {
 function drawFretBoard(chord) {
 
     var canvas = document.getElementById('chord1');
+    canvas.onclick = function () {
+        play();
+    }
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -214,6 +249,15 @@ function drawFretBoard(chord) {
         ctx.textBaseline = 'middle';
         ctx.fillStyle = 'rgb(0,0,0)';
         ctx.fillText(chord.name, canvas.width / 2, fingerSize);
+
+        // fixme: Play button
+        // ctx.beginPath();
+        // ctx.moveTo(canvas.width*4/5, 0);
+        // ctx.lineTo(canvas.width*4/5, 20);
+        // ctx.lineTo(canvas.width*4/5+20, 10);
+        // ctx.lineTo(canvas.width*4/5, 0);
+        // ctx.fill();
+
 
         // Vertical Lines
         for (let i = 0; i < 6; i++) {
