@@ -180,7 +180,7 @@ function drawBalls() {
 async function drawNextChrod() {
     currentChord = (currentChord + 1) % chordList[parentChord][childChord].length;
 
-    const chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
+    chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
     drawFretBoard(chord);
     drawBalls();
 
@@ -188,7 +188,7 @@ async function drawNextChrod() {
 async function drawPreviousChrod() {
     currentChord = (currentChord + chordList[parentChord][childChord].length - 1) % chordList[parentChord][childChord].length;
 
-    const chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
+    chord = new Chord(chordList[parentChord][childChord][currentChord], childChord);
     drawFretBoard(chord);
     drawBalls();
 }
